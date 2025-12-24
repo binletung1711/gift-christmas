@@ -2,157 +2,165 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎄 Merry Christmas 🎁</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>🎄 Gift Christmas</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:Poppins,sans-serif;
-  background:radial-gradient(circle at top,#0b1d3a,#000814);
-  color:white;
-  overflow:hidden;
-}
-.screen{
-  position:absolute;inset:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
-  transition:.8s;
-}
-.hidden{opacity:0;pointer-events:none;transform:scale(.95)}
-
-h1{font-family:'Mountains of Christmas',cursive;font-size:3rem;margin-bottom:15px}
-p{max-width:500px;opacity:.9}
-
-button{
-  margin-top:25px;
-  padding:14px 40px;
-  border:none;
-  border-radius:50px;
-  font-size:1.1rem;
-  background:linear-gradient(135deg,#ff4d4d,#ff9f43);
-  color:white;
-  cursor:pointer;
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #0b1d3a;
+  font-family: 'Mountains of Christmas', cursive;
+  color: white;
+  text-align: center;
 }
 
-.santa{font-size:6rem;animation:float 3s infinite}
-@keyframes float{50%{transform:translateY(-15px)}}
-
-.gift-box{
-  width:160px;height:140px;
-  background:#c0392b;
-  position:relative;
-  border-radius:10px;
-  animation:shake 1s infinite;
-}
-.gift-box::before{
-  content:"";
-  position:absolute;
-  width:30px;height:100%;
-  background:#f1c40f;
-  left:50%;transform:translateX(-50%);
-}
-.lid{
-  position:absolute;
-  top:-35px;left:-10px;
-  width:180px;height:40px;
-  background:#e74c3c;
-  border-radius:10px;
-  transition:.8s;
-}
-.open .lid{transform:translateY(-80px) rotate(-10deg)}
-.light{
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle,#fff,transparent 70%);
-  opacity:0;
-}
-.open .light{opacity:1}
-
-@keyframes shake{
-  0%,100%{transform:rotate(0)}
-  25%{transform:rotate(3deg)}
-  75%{transform:rotate(-3deg)}
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 1;
+  transition: 0.6s ease;
 }
 
-img{
-  max-width:260px;
-  border-radius:15px;
-  margin-top:20px;
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+h1 {
+  font-size: 2.6rem;
+  margin: 12px 0;
+}
+
+p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+button {
+  background: #ff3f3f;
+  color: white;
+  border: none;
+  padding: 14px 42px;
+  font-size: 1.1rem;
+  border-radius: 40px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+#box {
+  width: 200px;
+  height: 180px;
+  background: #c0392b;
+  border-radius: 12px;
+  position: relative;
+  animation: shake 1s infinite;
+}
+
+#box::before {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 180px;
+  background: #f1c40f;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lid {
+  position: absolute;
+  top: -38px;
+  left: -8px;
+  width: 216px;
+  height: 44px;
+  background: #e74c3c;
+  border-radius: 10px;
+  transition: 0.8s;
+}
+
+.open .lid {
+  transform: translateY(-100px) rotate(-12deg);
+}
+
+@keyframes shake {
+  0%,100% {transform: rotate(0);}
+  25% {transform: rotate(3deg);}
+  75% {transform: rotate(-3deg);}
+}
+
+img.final-img {
+  max-width: 280px;
+  border-radius: 12px;
+  margin-top: 18px;
 }
 </style>
 </head>
 <body>
 
-<!-- Screen 1 -->
-<div class="screen" id="s1">
-  <div class="santa">🎅</div>
-  <h1>Ông già Noel đang phát quà!</h1>
-  <p>Bạn đã sẵn sàng nhận món quà Giáng Sinh chưa?</p>
-  <button onclick="next(1)">Sẵn sàng 🎁</button>
+<!-- INTRO -->
+<div class="screen" id="intro">
+  <h1>🎅 Ông già Noel đang phát quà rồi!</h1>
+  <p>Bạn đã sẵn sàng để nhận món quà đặc biệt chưa?</p>
+  <button onclick="goto(1)">Sẵn sàng 🎁</button>
 </div>
 
-<!-- Screen 2 -->
-<div class="screen hidden" id="s2">
-  <h1>Chuẩn bị nhé…</h1>
-  <p>Giữ chặt món quà này, điều bất ngờ sắp đến 🎄</p>
-  <button onclick="next(2)">Mở quà</button>
+<!-- PREPARE OPEN -->
+<div class="screen hidden" id="prepare">
+  <h1>🎁 Chuẩn bị nhận quà...</h1>
+  <p>Giữ chặt tay và bấm mở quà nhé!</p>
+  <button onclick="goto(2)">Mở quà</button>
 </div>
 
-<!-- Screen 3 -->
-<div class="screen hidden" id="s3">
-  <div class="gift-box" id="box">
+<!-- BOX OPEN ANIMATION -->
+<div class="screen hidden" id="openbox">
+  <div id="box">
     <div class="lid"></div>
-    <div class="light"></div>
   </div>
 </div>
 
-<!-- Screen 4 -->
-<div class="screen hidden" id="s4">
+<!-- MESSAGE -->
+<div class="screen hidden" id="message">
   <h1>Merry Christmas 🎄</h1>
-  <p id="msg"></p>
+  <p id="textMsg"></p>
+  <button onclick="goto(3)">Tiếp tục</button>
 </div>
 
-<!-- Screen 5 -->
-<div class="screen hidden" id="s5">
-  <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600">
-  <p style="margin-top:15px">Chúc bạn một mùa Giáng Sinh an lành ❤️</p>
+<!-- FINAL WITH IMG -->
+<div class="screen hidden" id="final">
+  <h1>✨ Chúc bạn một mùa Giáng Sinh ấm áp!</h1>
+  <img class="final-img" src="https://images.pexels.com/photos/3072636/pexels-photo-3072636.jpeg">
 </div>
-
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/11/22/audio_64b6bdfc86.mp3">
-</audio>
 
 <script>
-const id = location.hash.replace("#id=","");
-document.getElementById("msg").innerHTML = id
- ? `🎁 Gửi tới <b>${id}</b><br>Chúc bạn một mùa Noel ấm áp, hạnh phúc và tràn đầy yêu thương ✨`
- : `🎁 Chúc bạn một mùa Noel an lành và hạnh phúc ✨`;
+// Get id from URL
+const urlID = location.hash.replace("#id=","");
+const msg = document.getElementById("textMsg");
+msg.innerHTML = urlID
+  ? `🎁 Gửi riêng cho <b>${urlID}</b><br>Chúc bạn an lành, hạnh phúc và tràn đầy yêu thương!`
+  : `🎁 Chúc bạn một mùa Giáng Sinh tràn niềm vui và ấm áp!`;
 
-function next(n){
-  document.getElementById("music").play();
-  document.getElementById("s"+n).classList.add("hidden");
-  document.getElementById("s"+(n+1)).classList.remove("hidden");
+function goto(stage) {
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("prepare").classList.add("hidden");
+  document.getElementById("openbox").classList.add("hidden");
+  document.getElementById("message").classList.add("hidden");
+  document.getElementById("final").classList.add("hidden");
 
-  if(n===2){
-    setTimeout(()=>{
-      document.getElementById("box").classList.add("open");
-      setTimeout(()=>{
-        document.getElementById("s3").classList.add("hidden");
-        document.getElementById("s4").classList.remove("hidden");
-        setTimeout(()=>{
-          document.getElementById("s4").classList.add("hidden");
-          document.getElementById("s5").classList.remove("hidden");
-        },4000);
-      },2000);
-    },500);
+  if (stage === 1) document.getElementById("prepare").classList.remove("hidden");
+  if (stage === 2) {
+    document.getElementById("openbox").classList.remove("hidden");
+    setTimeout(() => goto(4), 1800);
   }
+  if (stage === 3) document.getElementById("message").classList.remove("hidden");
+  if (stage === 4) document.getElementById("message").classList.remove("hidden");
 }
 </script>
 
