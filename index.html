@@ -8,202 +8,151 @@
 <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  user-select: none;
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Poppins,sans-serif;
+  background:radial-gradient(circle at top,#0b1d3a,#000814);
+  color:white;
+  overflow:hidden;
+}
+.screen{
+  position:absolute;inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  transition:.8s;
+}
+.hidden{opacity:0;pointer-events:none;transform:scale(.95)}
+
+h1{font-family:'Mountains of Christmas',cursive;font-size:3rem;margin-bottom:15px}
+p{max-width:500px;opacity:.9}
+
+button{
+  margin-top:25px;
+  padding:14px 40px;
+  border:none;
+  border-radius:50px;
+  font-size:1.1rem;
+  background:linear-gradient(135deg,#ff4d4d,#ff9f43);
+  color:white;
+  cursor:pointer;
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at top, #0b1d3a, #000814);
-  color: white;
-  overflow: hidden;
-  height: 100vh;
+.santa{font-size:6rem;animation:float 3s infinite}
+@keyframes float{50%{transform:translateY(-15px)}}
+
+.gift-box{
+  width:160px;height:140px;
+  background:#c0392b;
+  position:relative;
+  border-radius:10px;
+  animation:shake 1s infinite;
+}
+.gift-box::before{
+  content:"";
+  position:absolute;
+  width:30px;height:100%;
+  background:#f1c40f;
+  left:50%;transform:translateX(-50%);
+}
+.lid{
+  position:absolute;
+  top:-35px;left:-10px;
+  width:180px;height:40px;
+  background:#e74c3c;
+  border-radius:10px;
+  transition:.8s;
+}
+.open .lid{transform:translateY(-80px) rotate(-10deg)}
+.light{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle,#fff,transparent 70%);
+  opacity:0;
+}
+.open .light{opacity:1}
+
+@keyframes shake{
+  0%,100%{transform:rotate(0)}
+  25%{transform:rotate(3deg)}
+  75%{transform:rotate(-3deg)}
 }
 
-/* Snow */
-.snow {
-  position: fixed;
-  top: -10px;
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(110vh);
-  }
-}
-
-/* Screens */
-.screen {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.95);
-}
-
-h1 {
-  font-family: 'Mountains of Christmas', cursive;
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
-
-p {
-  max-width: 500px;
-  font-size: 1.1rem;
-  opacity: 0.9;
-}
-
-/* Button */
-button {
-  margin-top: 30px;
-  padding: 14px 40px;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 50px;
-  background: linear-gradient(135deg, #ff4d4d, #ff9f43);
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(255, 77, 77, 0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(255, 77, 77, 0.6);
-}
-
-/* Santa */
-.santa {
-  font-size: 6rem;
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-/* Gift */
-.gift {
-  font-size: 5rem;
-  animation: shake 1.2s infinite;
-}
-
-@keyframes shake {
-  0% { transform: rotate(0); }
-  25% { transform: rotate(4deg); }
-  50% { transform: rotate(0); }
-  75% { transform: rotate(-4deg); }
-  100% { transform: rotate(0); }
-}
-
-/* Rotate warning */
-#rotate {
-  position: fixed;
-  inset: 0;
-  background: black;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-  text-align: center;
-}
-
-#rotate h2 {
-  font-size: 1.5rem;
+img{
+  max-width:260px;
+  border-radius:15px;
+  margin-top:20px;
 }
 </style>
 </head>
 <body>
 
-<div id="rotate">
-  <h2>📱 Hãy xoay ngang màn hình để tiếp tục 🎄</h2>
-</div>
-
-<!-- Intro -->
-<div class="screen" id="screen1">
+<!-- Screen 1 -->
+<div class="screen" id="s1">
   <div class="santa">🎅</div>
   <h1>Ông già Noel đang phát quà!</h1>
-  <p>Bạn đã sẵn sàng nhận món quà Giáng Sinh đặc biệt chưa?</p>
-  <button onclick="start()">Sẵn sàng 🎁</button>
+  <p>Bạn đã sẵn sàng nhận món quà Giáng Sinh chưa?</p>
+  <button onclick="next(1)">Sẵn sàng 🎁</button>
 </div>
 
-<!-- Gift -->
-<div class="screen hidden" id="screen2">
-  <div class="gift">🎁</div>
-  <h1>Merry Christmas!</h1>
-  <p id="message"></p>
+<!-- Screen 2 -->
+<div class="screen hidden" id="s2">
+  <h1>Chuẩn bị nhé…</h1>
+  <p>Giữ chặt món quà này, điều bất ngờ sắp đến 🎄</p>
+  <button onclick="next(2)">Mở quà</button>
+</div>
+
+<!-- Screen 3 -->
+<div class="screen hidden" id="s3">
+  <div class="gift-box" id="box">
+    <div class="lid"></div>
+    <div class="light"></div>
+  </div>
+</div>
+
+<!-- Screen 4 -->
+<div class="screen hidden" id="s4">
+  <h1>Merry Christmas 🎄</h1>
+  <p id="msg"></p>
+</div>
+
+<!-- Screen 5 -->
+<div class="screen hidden" id="s5">
+  <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600">
+  <p style="margin-top:15px">Chúc bạn một mùa Giáng Sinh an lành ❤️</p>
 </div>
 
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/11/22/audio_64b6bdfc86.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/11/22/audio_64b6bdfc86.mp3">
 </audio>
 
 <script>
-// Snow generator
-for (let i = 0; i < 50; i++) {
-  const snow = document.createElement("div");
-  snow.className = "snow";
-  snow.style.left = Math.random() * 100 + "vw";
-  snow.style.animationDuration = (3 + Math.random() * 5) + "s";
-  snow.style.opacity = Math.random();
-  snow.style.transform = `scale(${Math.random()})`;
-  document.body.appendChild(snow);
-}
+const id = location.hash.replace("#id=","");
+document.getElementById("msg").innerHTML = id
+ ? `🎁 Gửi tới <b>${id}</b><br>Chúc bạn một mùa Noel ấm áp, hạnh phúc và tràn đầy yêu thương ✨`
+ : `🎁 Chúc bạn một mùa Noel an lành và hạnh phúc ✨`;
 
-// Orientation check
-function checkRotate() {
-  const rotate = document.getElementById("rotate");
-  if (window.innerHeight > window.innerWidth) {
-    rotate.style.display = "flex";
-  } else {
-    rotate.style.display = "none";
-  }
-}
-window.addEventListener("resize", checkRotate);
-checkRotate();
-
-// Start
-function start() {
+function next(n){
   document.getElementById("music").play();
-  document.getElementById("screen1").classList.add("hidden");
-  document.getElementById("screen2").classList.remove("hidden");
-}
+  document.getElementById("s"+n).classList.add("hidden");
+  document.getElementById("s"+(n+1)).classList.remove("hidden");
 
-// Personal message
-const id = location.hash.replace("#id=", "");
-const message = document.getElementById("message");
-
-if (id) {
-  message.innerHTML = `
-    🎄 Gửi đến bạn có mã <b>${id}</b><br><br>
-    Chúc bạn một mùa Giáng Sinh an lành,<br>
-    nhiều niềm vui, hạnh phúc và bất ngờ 🎅✨
-  `;
-} else {
-  message.innerHTML = `
-    🎄 Chúc bạn một mùa Giáng Sinh thật ấm áp,<br>
-    tràn đầy yêu thương và tiếng cười 🎁✨
-  `;
+  if(n===2){
+    setTimeout(()=>{
+      document.getElementById("box").classList.add("open");
+      setTimeout(()=>{
+        document.getElementById("s3").classList.add("hidden");
+        document.getElementById("s4").classList.remove("hidden");
+        setTimeout(()=>{
+          document.getElementById("s4").classList.add("hidden");
+          document.getElementById("s5").classList.remove("hidden");
+        },4000);
+      },2000);
+    },500);
+  }
 }
 </script>
 
